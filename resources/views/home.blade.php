@@ -7,14 +7,28 @@
     <title>Login Page</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
         integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<style>
+    #closeIcon {
+        display: none;
+        font-size: 1.5rem;
+        transition: transform 0.3s;
+    }
+
+    .collapsed #closeIcon {
+        display: block;
+    }
+</style>
 </head>
+
 <body>
 
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <a class="navbar-brand" href="#">Dashboard Laravel</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-    </button>
+    <span class="navbar-toggler-icon"></span>
+    <i class="fas fa-times" id="closeIcon" style="display: none;"></i>
+</button>
     <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav ml-auto">
             @foreach($users as $user)
@@ -154,19 +168,25 @@
 </div>
 
 
+<script>
+    document.getElementById('logoutButton').addEventListener('click', function (e) {
+        e.preventDefault();
+        $('#logoutConfirmation').modal('show');
+    });
 
+    // nav animasi
+    document.querySelector(".navbar-toggler").addEventListener("click", function () {
+        const closeIcon = document.getElementById("closeIcon");
+        closeIcon.style.transform = closeIcon.style.transform === "rotate(45deg)" ? "rotate(0deg)" : "rotate(45deg)";
+    });
+</script>
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
         integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous">
     </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct" crossorigin="anonymous">
     </script>
-    <script>
-    document.getElementById('logoutButton').addEventListener('click', function (e) {
-        e.preventDefault();
-        $('#logoutConfirmation').modal('show');
-    });
-</script>
+
 </body>
 
 </html>
