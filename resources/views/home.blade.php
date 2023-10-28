@@ -11,12 +11,38 @@
 <div class="container">
     <div class="row">
         <div class="col-12">
-            <h3 class="mt-3">Home Admin Laravel</h3>
+            
+            <h3 class="mt-3">Dashboard Laravel</h3>
             
 
             @foreach($users as $user)
-                <h4>selamat datang <b>{{$user->name}}</b>!</h4>
+            <h4>selamat datang <b>{{$user->name}}</b>!</h4>
             @endforeach
+
+
+
+            <div class="container">
+                <div class="row"> 
+                    <div class="col-12 my-2">
+                    <h5 class="text-center">Daftar Member yang Terdaftar</h5>                        
+                    </div>
+
+                    @foreach($all_users as $member)
+                    @if($member->role == 'member')
+                        <div class="col-12 col-md-4">
+                            <div class="card my-4">
+                                <div class="card-body">
+                                    <h5 class="card-title">{{ $member->name }}</h5>
+                                    <p class="card-text">Email : {{ $member->email }}</p>
+                                    <p class="mb-0">Tanggal Registrasi : {{ \Carbon\Carbon::parse($member->created_at)->format('d/m/Y') }}</p>
+                                </div>
+                            </div>
+                        </div>           
+                     @endif
+                    @endforeach
+                </div>
+            </div>
+
             
             <a href="{{ route('logoutaksi') }}" class="btn btn-danger btn-block">Logout</a>
         </div>

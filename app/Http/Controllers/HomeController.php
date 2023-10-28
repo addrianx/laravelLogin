@@ -13,6 +13,8 @@ class HomeController extends Controller
     {
         $id = Auth()->id();
         $users = DB::table('users')->where('id',$id)->get();
-        return view('home',["users"=>$users]);
+        $all_users = DB::table('users')->get();
+        //dd($all_users);
+        return view('home',["users"=>$users, "all_users"=>$all_users]);
     }
 }

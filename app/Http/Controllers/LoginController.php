@@ -11,6 +11,11 @@ class LoginController extends Controller
     //login
     public function login()
     {
+        // $this->validate(request(), [
+        //     'email' => 'required|email',
+        //     'password' => 'required'
+        // ]);
+
         if (Auth::check())
         {
             return redirect('home');

@@ -12,6 +12,13 @@
     <div class="row">
         <div class="col-12">
             <h3 class="mt-3">Login Admin Laravel</h3>
+           
+            @if(session('success'))
+                <div class="alert alert-success">
+                    {{ session('success') }}
+                </div>
+            @endif
+
             @if(session('error'))
             <div class="alert alert-danger">
                 <b>Opps!</b> {{ session('error') }}
@@ -22,15 +29,15 @@
                 @csrf
                 <div class="form-group">
                     <label for="loginEmail">Email</label>
-                    <input type="email" class="form-control" name="email" id="loginEmail" placeholder="Email" required="">
+                    <input type="text" class="form-control" name="email" id="email" placeholder="Email">
                 </div>
                 <div class="form-group">
                     <label for="loginPassword">Password</label>
-                    <input type="password" class="form-control" name="password" placeholder="password" id="loginPassword">
+                    <input type="password" class="form-control" name="password" placeholder="password" id="password">
                 </div>
                 <button type="submit" class="btn btn-primary btn-block">Submit</button>
                 <hr>
-                <p class="text-center">Belum Punya Akun? <a href="#">Daftar Sekarang!</a></p>
+                <p class="text-center">Belum Punya Akun? <a href="/register">Daftar Sekarang!</a></p>
             </form>
         </div>
     </div>
