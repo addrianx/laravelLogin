@@ -47,6 +47,8 @@ class LoginController extends Controller
     public function logoutaksi()
     {
         Auth::logout();
+
+        session()->flash('success', 'Anda Telah Logout.');
         return redirect('/');
     }
 
