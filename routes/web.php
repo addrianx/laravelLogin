@@ -19,3 +19,5 @@ Route::get('home', 'App\Http\Controllers\HomeController@index')->name('home')->m
 Route::get('logoutaksi', 'App\Http\Controllers\LoginController@logoutaksi')->name('logoutaksi')->middleware('auth');
 Route::get('register', 'App\Http\Controllers\RegisterController@register')->name('register');
 Route::post('SaveUser', 'App\Http\Controllers\RegisterController@SaveUser')->name('SaveUser');
+Route::delete('/delete-member/{id}', 'App\Http\Controllers\HomeController@deleteMember')->name('delete.member');
+

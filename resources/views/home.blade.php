@@ -13,35 +13,89 @@
         <div class="col-12">
             
             <h3 class="mt-3">Dashboard Laravel</h3>
-            
+
+           
 
             @foreach($users as $user)
             <h4>selamat datang <b>{{$user->name}}</b>!</h4>
-            @endforeach
+  
 
-
-
+            @if($user->role == 'admin')
             <div class="container">
                 <div class="row"> 
                     <div class="col-12 my-2">
-                    <h5 class="text-center">Daftar Member yang Terdaftar</h5>                        
+                        <h5 class="text-center">Daftar Member yang Terdaftar</h5>                        
                     </div>
-
-                    @foreach($all_users as $member)
-                    @if($member->role == 'member')
-                        <div class="col-12 col-md-4">
-                            <div class="card my-4">
-                                <div class="card-body">
-                                    <h5 class="card-title">{{ $member->name }}</h5>
-                                    <p class="card-text">Email : {{ $member->email }}</p>
-                                    <p class="mb-0">Tanggal Registrasi : {{ \Carbon\Carbon::parse($member->created_at)->format('d/m/Y') }}</p>
+                    
+                    
+                        @if (session('success'))
+                            <div class="col-12">
+                                <div id="successAlert" class="alert alert-success alert-dismissible">
+                                    {{ session('success') }}
+                                    <button type="button" class="close" data-dismiss="alert">&times;</button>
                                 </div>
                             </div>
-                        </div>           
-                     @endif
+                        @endif     
+                                <div class="table-responsive">
+                                    <table class="table">
+                                        <thead class="table-dark">
+                                        <tr>
+                                            <th scope="col">#</th>
+                                            <th scope="col">Nama</th>
+                                            <th scope="col">Email</th>
+                                            <th scope="col">Tanggal Daftar</th>
+                                            <th scope="col">Aksi</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                            @if ($members->isEmpty())
+                                                <tr>
+                                                    <td colspan="5" class="text-center">Tidak Ada member yang terdaftar</td>
+                                                </tr>
+                                            @else
+                                                @foreach($members as $member)
+                                                    <tr>
+                                                        <th scope="row">{{ $loop->iteration }}</th>
+                                                        <td>{{ $member->name }}</td>
+                                                        <td>{{ $member->email }}</td>
+                                                        <td>{{ \Carbon\Carbon::parse($member->created_at)->format('d/m/Y') }}</td>
+                                                        <td scope="col"><button class="btn btn-danger" data-toggle="modal" data-target="#deleteModal{{ $member->id }}">Hapus</button></td>
+                                                    </tr>
+                                                    <!-- Modal Konfirmasi Hapus -->
+                                                    <div class="modal fade" id="deleteModal{{ $member->id }}" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
+                                                        <div class="modal-dialog" role="document">
+                                                            <div class="modal-content">
+                                                                <div class="modal-header">
+                                                                    <h5 class="modal-title" id="deleteModalLabel">Konfirmasi Hapus</h5>
+                                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                        <span aria-hidden="true">&times;</span>
+                                                                    </button>
+                                                                </div>
+                                                                <div class="modal-body">
+                                                                    Apakah Anda yakin ingin menghapus pengguna {{ $member->name }}?
+                                                                </div>
+                                                                <div class="modal-footer">
+                                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+                                                                    <form method="POST" action="{{ route('delete.member', ['id' => $member->id]) }}">
+                                                                        @csrf
+                                                                        @method('DELETE')
+                                                                        <button type="submit" class="btn btn-danger">Hapus</button>
+                                                                    </form>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                @endforeach
+                                            @endif
+                                        </tbody>
+                                    </table>
+                                    </div> 
+                    @endif
                     @endforeach
                 </div>
             </div>
+
+
 
             
             <a href="{{ route('logoutaksi') }}" class="btn btn-danger btn-block">Logout</a>
